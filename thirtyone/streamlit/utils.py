@@ -7,30 +7,30 @@ import streamlit as st
 
 
 # 데이터 파일 경로 설정
-# DATA_PATHS = {
-#     'click': "streamlit/click.parquet",
-#     'ads_pool': "/Users/t2023-m0052/Documents/GitHub/final_project/data/ads_pool.csv",
-#     'media_portfolio': "/Users/t2023-m0052/Documents/GitHub/final_project/data/media_performance_classification.csv",
-#     'media_performance_classification': "/Users/t2023-m0052/Documents/GitHub/final_project/data/media_performance_classification.csv",
-#     'ads_list': "/Users/t2023-m0052/Documents/GitHub/final_project/Sehee/수정2_광고목록.csv",
-#     'ads_time': "/Users/t2023-m0052/Documents/GitHub/final_project/data/수정_시간별적립보고서(최종).csv",
-#     'ads_segment': "/Users/t2023-m0052/Documents/GitHub/final_project/data/ads_segment.csv",
-#     'new_ads_pool':"/Users/t2023-m0052/Documents/GitHub/final_project/Sehee/신규가상광고.csv",
-#     'model_bundle':"/Users/t2023-m0052/Documents/GitHub/final_project/streamlit/model_lightgbm.pkl"
-# }
+DATA_PATHS = {
+    'click': "streamlit/click.parquet",
+    'ads_pool': "/Users/t2023-m0052/Documents/GitHub/final_project/data/ads_pool.csv",
+    'media_portfolio': "/Users/t2023-m0052/Documents/GitHub/final_project/data/media_performance_classification.csv",
+    'media_performance_classification': "/Users/t2023-m0052/Documents/GitHub/final_project/data/media_performance_classification.csv",
+    'ads_list': "/Users/t2023-m0052/Documents/GitHub/final_project/Sehee/수정2_광고목록.csv",
+    'ads_time': "/Users/t2023-m0052/Documents/GitHub/final_project/data/수정_시간별적립보고서(최종).csv",
+    'ads_segment': "/Users/t2023-m0052/Documents/GitHub/final_project/data/ads_segment.csv",
+    'new_ads_pool':"/Users/t2023-m0052/Documents/GitHub/final_project/Sehee/신규가상광고.csv",
+    'model_bundle':"/Users/t2023-m0052/Documents/GitHub/final_project/streamlit/model_lightgbm.pkl"
+}
 
 # 데이터 파일 경로 설정
-DATA_PATHS = {
-    'click': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/유저테이블.csv",
-    'ads_pool': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/ads_pool.csv",
-    'media_portfolio': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/media_performance_classification.csv",
-    'media_performance_classification': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/media_performance_classification.csv",
-    'ads_list': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/수정2_광고목록.csv",
-    'ads_time': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/수정_시간별적립보고서(최종).csv",
-    'ads_segment': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/ads_segment.csv",
-    'new_ads_pool':"/Users/Jiwon/Documents/GitHub/final_project/Jiwon/신규가상광고.csv",
-    'model_bundle':"/Users/Jiwon/Documents/GitHub/final_project/streamlit/model_lightgbm.pkl"
-}
+# DATA_PATHS = {
+#     'click': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/유저테이블.csv",
+#     'ads_pool': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/ads_pool.csv",
+#     'media_portfolio': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/media_performance_classification.csv",
+#     'media_performance_classification': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/media_performance_classification.csv",
+#     'ads_list': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/수정2_광고목록.csv",
+#     'ads_time': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/수정_시간별적립보고서(최종).csv",
+#     'ads_segment': "/Users/Jiwon/Documents/GitHub/final_project/Jiwon/ads_segment.csv",
+#     'new_ads_pool':"/Users/Jiwon/Documents/GitHub/final_project/Jiwon/신규가상광고.csv",
+#     'model_bundle':"/Users/Jiwon/Documents/GitHub/final_project/streamlit/model_lightgbm.pkl"
+# }
 
 
 os_map = {
@@ -169,8 +169,11 @@ def add_cat_domain_to_mda_pf(
 @st.cache_data
 def load_click():
     """유저테이블(click 데이터) 로딩"""
-    # return pd.read_parquet(DATA_PATHS["click"], engine="pyarrow")
-    return pd.read_csv(DATA_PATHS["click"])
+    if DATA_PATHS["click"][-3:] == 'csv':
+        return pd.read_csv(DATA_PATHS["click"])
+    else:
+        return pd.read_parquet(DATA_PATHS["click"], engine="pyarrow")
+    
 
 @st.cache_data
 def load_ads_pool():
